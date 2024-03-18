@@ -1,6 +1,5 @@
 import ChartJsImage from "chartjs-to-image";
 import { BenchmarkFunctions, ChartDataResult } from "./interfaces";
-import writefile from "fs";
 import { saveJsonFile } from "./utils/save-json-file";
 
 /**
