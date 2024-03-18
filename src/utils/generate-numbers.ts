@@ -1,7 +1,7 @@
 export const generateArray = (length: number): number[] => {
-	const arr: number[] = [];
+	const numbers: number[] = [];
 	for (let i = 0; i < length; i++) {
-		arr.push(i);
+		numbers.push(i);
 	}
-	return arr;
+	return numbers;
 };
