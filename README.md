@@ -113,6 +113,12 @@ describe("Benchmark", () => {
 }
 ```
 
+## Conclusion
+
+Based on the benchmark results, it's evident that in this specific scenario, the method sumNumberUsingFor, which utilizes a for loop, is better than sumNumberUsingReduce, which use the built-in reduce method, in terms of execution time. The for loop method completes the task in approximately 4.218 milliseconds, while the reduce method takes around 14.500 milliseconds.
+
+However, it's important to note that the superiority of the for loop in this scenario may vary depending on different factors such as the size of the input array, the complexity of the operations within the methods, and the specific environment in which the code is executed. Therefore, while these benchmark results provide valuable insights into the performance of these methods under certain conditions, it's crucial to consider various scenarios and factors when determining the optimal approach for a given task.
+
 ## Contributing
 
 Pull requests are welcome <3. Please make sure to update tests as appropriate.
