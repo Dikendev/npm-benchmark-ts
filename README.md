@@ -4,18 +4,14 @@ This project was created to measure the execution time of methods in my projects
 
 ## Installation
 
-To install all the dependencies, use the package manager [npm](https://www.npmjs.com/)
+To install all the dependencies, use the package manager [npm](https://www.npmjs.com/) and use the follow:
 
 ```bash
-npm install
+npm i npm-benchmark-ts
 ```
 
 The unique external library in this project is the [ChartJsImage](https://www.npmjs.com/package/chartjs-to-image/).
 This library provides a ChartJsImage object. Import it, instantiate it, and set the necessary config.
-
-```bash
-npm install chartjs-to-image
-```
 
 ## Dependencies
 
