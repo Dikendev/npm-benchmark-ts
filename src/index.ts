@@ -1,5 +1,5 @@
-import { saveJsonFile } from "./utils/save-json-file";
-import { ChartData } from "./chart-data";
+import { Options, saveJsonFile } from "./utils/save-json-file";
+import { ChartData } from "./utils/save-chart-data";
 
 export interface ChartDataResult {
 	[key: string]: ChartDataResultBenchmark;
@@ -23,7 +23,7 @@ export interface BenchmarkFunctions<T, U> {
  */
 export function measurePerformance<T, U>(
 	benchmarkFunctions: BenchmarkFunctions<T, U>[]
-) {
+): ChartDataResult {
 	const chartData: ChartDataResult = {};
 	for (const {
 		functionDescription,
@@ -54,9 +54,15 @@ export function measurePerformance<T, U>(
  */
 export async function benchMark<T, U>(
 	benchMarkNameFile: string,
-	benchmarkFunctions: BenchmarkFunctions<T, U>[]
-) {
+	benchmarkFunctions: BenchmarkFunctions<T, U>[],
+	options?: Options
+): Promise<ChartDataResult> {
 	const chartData = measurePerformance(benchmarkFunctions);
-	ChartData.createChart(benchMarkNameFile, chartData);
-	await saveJsonFile(benchMarkNameFile, chartData);
+
+	if (options?.saveFile) {
+		ChartData.createChart(benchMarkNameFile, chartData, options);
+		await saveJsonFile(benchMarkNameFile, chartData, options);
+	}
+
+	return chartData;
 }

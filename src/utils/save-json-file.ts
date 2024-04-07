@@ -4,12 +4,28 @@ import path from "path";
 
 const writeFileAsync = promisify(fs.writeFile);
 
-export const saveJsonFile = async (fileName: string, data: object) => {
+export interface Options {
+	saveFile: boolean;
+	dirPath?: string;
+}
+
+export const saveJsonFile = async (
+	fileName: string,
+	data: object,
+	options: Options = { saveFile: true }
+) => {
+	if (options.saveFile === false) {
+		return;
+	}
+
+	const defaultPath = "./TMP";
+	const pathValid = options.dirPath ? options.dirPath : defaultPath;
+
+	let filePath: string;
 	try {
-		const filePath = path.join("./TMP", `${fileName}.json`);
+		filePath = path.join(pathValid, `${fileName}.json`);
 		await writeFileAsync(filePath, JSON.stringify(data));
 	} catch (err) {
-		console.error("Error saving file:", err);
 		throw err;
 	}
 };
