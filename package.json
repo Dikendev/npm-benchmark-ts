@@ -1,6 +1,6 @@
 {
   "name": "benchmark-ts",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A benchmark for projects using javascript/typescript",
   "scripts": {
     "test": "jest",
