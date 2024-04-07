@@ -1,4 +1,4 @@
-import { benchMark } from "../benchmark";
+import { benchMark } from "..";
 import { SumMethods } from "../sum-methods";
 import { generateArray } from "../utils/generate-numbers";
 import { BenchmarkFunctions } from "../interfaces";
