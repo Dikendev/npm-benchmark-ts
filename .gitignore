@@ -3,3 +3,9 @@ node_modules
 
 # Ignore built ts files
 dist/**/*
+
+/coverage.data
+/coverage/
+
+# Build files
+/dist
