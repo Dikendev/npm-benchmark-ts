@@ -1,5 +1,5 @@
 {
-  "name": "npm-benchmark-ts",
+  "name": "benchmark-ts",
   "version": "1.0.1",
   "description": "A benchmark for projects using javascript/typescript",
   "scripts": {

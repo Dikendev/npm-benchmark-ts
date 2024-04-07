@@ -1,4 +1,4 @@
-import { BenchmarkFunctions, ChartDataResult } from "./interfaces";
+import { BenchmarkFunctions, ChartDataResult } from "./interfaces/types";
 import { saveJsonFile } from "./utils/save-json-file";
 import { ChartData } from "./chart-data";
 
