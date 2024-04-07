@@ -1,5 +1,5 @@
 import ChartJsImage from "chartjs-to-image";
-import { ChartDataResult } from "./interfaces/types";
+import { ChartDataResult } from ".";
 
 export class ChartData {
 	/**

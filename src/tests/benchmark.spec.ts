@@ -1,7 +1,6 @@
-import { benchMark } from "..";
+import { benchMark, BenchmarkFunctions } from "..";
 import { SumMethods } from "../sum-methods";
 import { generateArray } from "../utils/generate-numbers";
-import { BenchmarkFunctions } from "../interfaces/types";
 
 describe("Benchmark", () => {
 	it("should accept any type of methods parameters and return types", async () => {

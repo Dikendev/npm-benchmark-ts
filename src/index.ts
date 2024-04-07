@@ -1,6 +1,22 @@
-import { BenchmarkFunctions, ChartDataResult } from "./interfaces/types";
 import { saveJsonFile } from "./utils/save-json-file";
 import { ChartData } from "./chart-data";
+
+export interface ChartDataResult {
+	[key: string]: ChartDataResultBenchmark;
+}
+
+export interface ChartDataResultBenchmark {
+	name: string;
+	duration: number;
+}
+
+export type FunctionUnderBenchmark<T, U> = (...args: T[]) => U;
+
+export interface BenchmarkFunctions<T, U> {
+	functionDescription: string;
+	functionUnderTest: FunctionUnderBenchmark<T, U>;
+	detail?: string;
+}
 
 /**
  * @description Measure the performance of the functions, lower time is better
