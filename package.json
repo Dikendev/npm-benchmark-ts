@@ -1,10 +1,10 @@
 {
-  "name": "benchmark",
+  "name": "npm-benchmark-ts",
   "version": "1.0.0",
-  "description": "A benchmark for projects",
+  "description": "A benchmark for projects using javascript/typescript",
   "scripts": {
     "test": "jest",
-    "build": "node-typescript-compiler"
+    "build": "tsup"
   },
   "devDependencies": {
     "@types/jest": "^29.5.12",
@@ -12,9 +12,33 @@
     "node-typescript-compiler": "^4.0.0",
     "ts-jest": "^29.1.2",
     "ts-node": "^10.9.2",
-    "typescript": "^5.4.2"
+    "tsup": "^8.0.2",
+    "typescript": "^5.4.4"
   },
   "dependencies": {
     "chartjs-to-image": "^1.2.2"
-  }
+  },
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Dikendev/benchmark.git"
+  },
+  "keywords": [
+    "typescript",
+    "benchmark",
+    "performance",
+    "speed",
+    "javascript"
+  ],
+  "author": "Diego Kennedy Guimarães Barros",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Dikendev/benchmark/issues"
+  },
+  "homepage": "https://github.com/Dikendev/benchmark#readme"
 }
