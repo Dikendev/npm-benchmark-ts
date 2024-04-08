@@ -24,20 +24,18 @@ export class ChartData {
 	static createChart = (
 		benchMarkNameFile: string,
 		chartData: ChartDataResult,
-		options: Options = { saveFile: false }
+		options: Options 
 	) => {
+		const label = CHART_LABEL;
 		if (options.saveFile === false) {
 			return;
 		}
-		const defaultPath = "./TMP";
-		const path = options.dirPath ? options.dirPath : defaultPath;
 		const { dataLabels, data } = this.prepareChartData(chartData);
-
 		const myChart = new ChartJsImage();
 		myChart.setConfig({
 			type: "bar",
-			data: { labels: dataLabels, datasets: [{ CHART_LABEL, data }] },
+			data: { labels: dataLabels, datasets: [{ label, data }] },
 		});
-		myChart.toFile(`${path}/${benchMarkNameFile}.png`);
+		myChart.toFile(`${options.dirPath}/${benchMarkNameFile}.png`);
 	};
 }

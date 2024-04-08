@@ -6,24 +6,20 @@ const writeFileAsync = promisify(fs.writeFile);
 
 export interface Options {
 	saveFile: boolean;
-	dirPath?: string;
+	dirPath: string;
 }
 
 export const saveJsonFile = async (
 	fileName: string,
 	data: object,
-	options: Options = { saveFile: true }
+	options: Options
 ) => {
 	if (options.saveFile === false) {
 		return;
 	}
-
-	const defaultPath = "./TMP";
-	const pathValid = options.dirPath ? options.dirPath : defaultPath;
-
 	let filePath: string;
 	try {
-		filePath = path.join(pathValid, `${fileName}.json`);
+		filePath = path.join(options.dirPath, `${fileName}.json`);
 		await writeFileAsync(filePath, JSON.stringify(data));
 	} catch (err) {
 		throw err;
