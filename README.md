@@ -1,6 +1,6 @@
 # Benchmark and Data Visualization
 
-This project was created to measure the execution time of methods in my projects. It's worth mentioning that shorter execution times don't necessarily is the best solution, however they provide a valuable metric for our projects. With this project, I aim to demonstrate how we can effectively measure execution time using minimal external libraries.
+This project was created to measure the execution time of algorithms. It's worth mentioning that shorter execution times don't necessarily is the best solution, however they provide a valuable metric for our projects. With this package, I aim to demonstrate how we can effectively measure execution time using minimal external libraries.
 
 ## Installation
 
@@ -13,18 +13,15 @@ npm i npm-benchmark-ts
 The unique external library in this project is the [ChartJsImage](https://www.npmjs.com/package/chartjs-to-image/).
 This library provides a ChartJsImage object. Import it, instantiate it, and set the necessary config.
 
-## Dependencies
-
-- **jest**: ^29.7.0
-- **node-typescript-compiler**: ^4.0.0
-- **ts-jest**: ^29.1.2
-- **ts-node**: ^10.9.2
-- **typescript**: ^5.4.2
-- **chartjs-to-image**: ^1.2.2
 
 ## Usage
 
-Create the method that you need to benchmark the execution time and run all the methods inside the spec.ts file. After the run, you can see the JSON result and chart PNG image.
+First need to import :
+
+```typescript
+import {benchMark, BenchmarkFunctions} from "npm-benchmark-ts";
+``` 
+
 
 For example, this method uses a for loop to sum an array of numbers:
 
@@ -46,48 +43,32 @@ function sumNumberUsingReduce(numbers: number[]): number {
 }
 ```
 
-I'm using this utility method to generate an array of numbers:
-
-```typescript
-const generateArray = (length: number): number[] => {
-	const numbers: number[] = [];
-	for (let i = 0; i < length; i++) {
-		numbers.push(i);
-	}
-	return numbers;
-};
-```
 
 To compare the execution time, run the test to generate the image and JSON files as follows:
 
 ```typescript
-import { benchMark } from "../benchmark";
-import { SumMethods } from "../sum-methods";
-import { generateArray } from "../utils/generate-numbers";
-import { BenchmarkFunctions } from "../interfaces";
 
-describe("Benchmark", () => {
-	it("should accept any type of methods parameters and return types", async () => {
-		const arrayLength = 1000000;
-		const numberArray = generateArray(arrayLength);
+const arrayLength = 1000000;
+const numberArray = generateArray(arrayLength);
 
-		const benchmark1: BenchmarkFunctions<number, number> = {
-			functionDescription: "forLoop",
-			functionUnderTest: () => SumMethods.sumNumberUsingFor(numberArray),
-			detail: "Sum numbers using for",
-		};
+const benchmark1: BenchmarkFunctions<number, number> = {
+	functionDescription: "forLoop",
+	functionUnderTest: () => SumMethods.sumNumberUsingFor(numberArray),
+	detail: "Sum numbers using for",
+};
 
-		const benchmark2: BenchmarkFunctions<number, number> = {
-			functionDescription: "reduce",
-			functionUnderTest: () => SumMethods.sumNumberUsingReduce(numberArray),
-			detail: "Sum numbers using reduce",
-		};
+const benchmark2: BenchmarkFunctions<number, number> = {
+    functionDescription: "reduce",
+    functionUnderTest: () => SumMethods.sumNumberUsingReduce(numberArray),
+    detail: "Sum numbers using reduce",
+};					
 
-		await benchMark<number, number>("comparison_sum_methods", [
-			benchmark1,
-			benchmark2,
-		]);
-	});
+await benchMark<number, number>("comparison_sum_methods", [
+    benchmark1,
+    benchmark2,
+]);
+		
+
 ```
 
 ## Chart Image Benchmark Result
