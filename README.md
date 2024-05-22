@@ -71,7 +71,6 @@ If you want to generate a chart and json response you can pass the option parame
 
 ```typescript
 const options: Options = {
-	saveFile: true,
 	dirPath: "TMP",
 };
 
