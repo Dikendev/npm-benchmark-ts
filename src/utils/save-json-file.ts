@@ -5,16 +5,15 @@ import path from "path";
 const writeFileAsync = promisify(fs.writeFile);
 
 export interface Options {
-	saveFile: boolean;
 	dirPath: string;
 }
 
 export const saveJsonFile = async (
 	fileName: string,
 	data: object,
-	options: Options
+	options?: Options
 ) => {
-	if (options.saveFile === false) {
+	if (options?.dirPath === undefined) {
 		return;
 	}
 	let filePath: string;

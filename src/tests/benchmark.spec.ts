@@ -3,14 +3,12 @@ import { generateArray, SumMethods } from "./sum-methods-mock";
 
 const saveJsonFile = require("../utils/save-json-file");
 import { ChartData } from "../utils/save-chart-data";
+import { Options } from "../utils/save-json-file";
 
 describe("Benchmark", () => {
 	it("should accept any type of methods parameters and return types", async () => {
 		const arrayLength = 1000000;
 		const numberArray = generateArray(arrayLength);
-
-		const spySaveFile = jest.spyOn(saveJsonFile, "saveJsonFile");
-		const spySaveChart = jest.spyOn(ChartData, "createChart");
 
 		const benchmark1: BenchmarkFunctions<number, number> = {
 			functionDescription: "forLoop",
@@ -36,9 +34,40 @@ describe("Benchmark", () => {
 		expect(benchMarkResult).toHaveProperty("reduce");
 		expect(benchMarkResult.reduce).toHaveProperty("name");
 		expect(benchMarkResult.reduce).toHaveProperty("duration");
-		// expect(spySaveFile).toHaveBeenCalled();
-		// expect(spySaveFile).toHaveBeenCalledTimes(1);
-		// expect(spySaveChart).toHaveBeenCalled();
-		// expect(spySaveChart).toHaveBeenCalledTimes(1);
+	});
+
+	it("should save the benchmark data to a file", async () => {
+		const arrayLength = 1000000;
+		const numberArray = generateArray(arrayLength);
+
+		const spySaveFile = jest.spyOn(saveJsonFile, "saveJsonFile");
+		const spySaveChart = jest.spyOn(ChartData, "createChart");
+
+		const benchmark1: BenchmarkFunctions<number, number> = {
+			functionDescription: "forLoop",
+			functionUnderTest: () => SumMethods.sumNumberUsingFor(numberArray),
+			detail: "Sum numbers using for",
+		};
+
+		const benchmark2: BenchmarkFunctions<number, number> = {
+			functionDescription: "reduce",
+			functionUnderTest: () => SumMethods.sumNumberUsingReduce(numberArray),
+			detail: "Sum numbers using reduce",
+		};
+
+		const options: Options = {
+			dirPath: "TMP",
+		};
+
+		await benchMark<number, number>(
+			"comparison_sum_methods",
+			[benchmark1, benchmark2],
+			options
+		);
+
+		expect(spySaveFile).toHaveBeenCalled();
+		expect(spySaveFile).toHaveBeenCalledTimes(1);
+		expect(spySaveChart).toHaveBeenCalled();
+		expect(spySaveChart).toHaveBeenCalledTimes(1);
 	});
 });

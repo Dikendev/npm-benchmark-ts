@@ -59,7 +59,7 @@ export async function benchMark<T, U>(
 ): Promise<ChartDataResult> {
 	const chartData = measurePerformance(benchmarkFunctions);
 
-	if (options?.saveFile) {
+	if (options?.dirPath !== undefined) {
 		ChartData.createChart(benchMarkNameFile, chartData, options);
 		await saveJsonFile(benchMarkNameFile, chartData, options);
 	}

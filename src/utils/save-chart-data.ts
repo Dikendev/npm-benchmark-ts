@@ -24,10 +24,10 @@ export class ChartData {
 	static createChart = (
 		benchMarkNameFile: string,
 		chartData: ChartDataResult,
-		options: Options 
+		options?: Options
 	) => {
 		const label = CHART_LABEL;
-		if (options.saveFile === false) {
+		if (options?.dirPath === undefined) {
 			return;
 		}
 		const { dataLabels, data } = this.prepareChartData(chartData);
