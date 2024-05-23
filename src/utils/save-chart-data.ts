@@ -2,6 +2,7 @@ import ChartJsImage from "chartjs-to-image";
 import { ChartDataResult } from "..";
 import { CHART_LABEL } from "../constants/chart.constants";
 import { Options } from "./save-json-file";
+import { filePath } from "./file-path";
 
 export class ChartData {
 	/**
@@ -36,6 +37,7 @@ export class ChartData {
 			type: "bar",
 			data: { labels: dataLabels, datasets: [{ label, data }] },
 		});
-		myChart.toFile(`${options.dirPath}/${benchMarkNameFile}.png`);
+
+		myChart.toFile(filePath(options.dirPath, `${benchMarkNameFile}.png`));
 	};
 }

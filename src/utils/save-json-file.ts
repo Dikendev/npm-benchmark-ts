@@ -1,6 +1,6 @@
 import fs from "fs";
 import { promisify } from "util";
-import path from "path";
+import { filePath } from "./file-path";
 
 const writeFileAsync = promisify(fs.writeFile);
 
@@ -16,10 +16,9 @@ export const saveJsonFile = async (
 	if (options?.dirPath === undefined) {
 		return;
 	}
-	let filePath: string;
 	try {
-		filePath = path.join(options.dirPath, `${fileName}.json`);
-		await writeFileAsync(filePath, JSON.stringify(data));
+		const path = filePath(options.dirPath, `${fileName}.json`);
+		await writeFileAsync(path, JSON.stringify(data));
 	} catch (err) {
 		throw err;
 	}
