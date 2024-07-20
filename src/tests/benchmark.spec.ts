@@ -1,28 +1,41 @@
-import { benchMark, BenchmarkFunctions } from "..";
+import { BenchmarkFunctions, BenchMarkJs } from "..";
 import { generateArray, SumMethods } from "./sum-methods-mock";
 
 const saveJsonFile = require("../utils/save-json-file");
-import { ChartData } from "../utils/save-chart-data";
 import { Options } from "../utils/save-json-file";
 
 describe("Benchmark", () => {
+	let benchMarkJs: BenchMarkJs;
+
+	beforeEach(() => {
+		benchMarkJs = new BenchMarkJs();
+	});
+
+	afterAll(() => {
+		jest.clearAllMocks();
+	});
+
+	it("should be defined", () => {
+		expect(benchMarkJs).toBeDefined();
+	});
+
 	it("should accept any type of methods parameters and return types", async () => {
 		const arrayLength = 1000000;
 		const numberArray = generateArray(arrayLength);
 
 		const benchmark1: BenchmarkFunctions<number, number> = {
-			functionDescription: "forLoop",
+			name: "forLoop",
 			functionUnderTest: () => SumMethods.sumNumberUsingFor(numberArray),
-			detail: "Sum numbers using for",
+			description: "Sum numbers using for",
 		};
 
 		const benchmark2: BenchmarkFunctions<number, number> = {
-			functionDescription: "reduce",
+			name: "reduce",
 			functionUnderTest: () => SumMethods.sumNumberUsingReduce(numberArray),
-			detail: "Sum numbers using reduce",
+			description: "Sum numbers using reduce",
 		};
 
-		const benchMarkResult = await benchMark<number, number>(
+		const benchMarkResult = await benchMarkJs.benchMark<number, number>(
 			"comparison_sum_methods",
 			[benchmark1, benchmark2]
 		);
@@ -41,25 +54,24 @@ describe("Benchmark", () => {
 		const numberArray = generateArray(arrayLength);
 
 		const spySaveFile = jest.spyOn(saveJsonFile, "saveJsonFile");
-		const spySaveChart = jest.spyOn(ChartData, "createChart");
 
 		const benchmark1: BenchmarkFunctions<number, number> = {
-			functionDescription: "forLoop",
+			name: "forLoop",
 			functionUnderTest: () => SumMethods.sumNumberUsingFor(numberArray),
-			detail: "Sum numbers using for",
+			description: "Sum numbers using for",
 		};
 
 		const benchmark2: BenchmarkFunctions<number, number> = {
-			functionDescription: "reduce",
+			name: "reduce",
 			functionUnderTest: () => SumMethods.sumNumberUsingReduce(numberArray),
-			detail: "Sum numbers using reduce",
+			description: "Sum numbers using reduce",
 		};
 
 		const options: Options = {
 			dirPath: "TMP",
 		};
 
-		await benchMark<number, number>(
+		await benchMarkJs.benchMark<number, number>(
 			"comparison_sum_methods",
 			[benchmark1, benchmark2],
 			options
@@ -67,7 +79,5 @@ describe("Benchmark", () => {
 
 		expect(spySaveFile).toHaveBeenCalled();
 		expect(spySaveFile).toHaveBeenCalledTimes(1);
-		expect(spySaveChart).toHaveBeenCalled();
-		expect(spySaveChart).toHaveBeenCalledTimes(1);
 	});
 });
