@@ -12,10 +12,16 @@ export class SumMethods {
 	}
 }
 
-export const generateArray = (length: number): number[] => {
-	const numbers: number[] = [];
-	for (let i = 0; i < length; i++) {
-		numbers.push(i);
-	}
-	return numbers;
-};
+export class Arrays {
+	static generateArray = (length: any): number[] => {
+		const numbers: number[] = [];
+		for (let i = 0; i < length; i++) {
+			numbers.push(i);
+		}
+		return numbers;
+	};
+
+	static generateArrayWithRandom = (length: number): number[] => {
+		return new Array(length).fill(1);
+	};
+}

@@ -67,7 +67,22 @@ export class ChartData {
 		const { label, data } = dataSets;
 		myChart.setConfig({
 			type: "bar",
-			data: { labels: dataLabels, datasets: [{ label, data }] },
+			data: {
+				labels: dataLabels,
+				datasets: [{ label, data }],
+			},
+			options: {
+				scales: {
+					yAxes: [
+						{
+							ticks: {
+								stepSize: 0.5,
+								beginAtZero: true,
+							},
+						},
+					],
+				},
+			},
 		});
 	}
 }

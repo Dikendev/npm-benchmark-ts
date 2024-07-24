@@ -1,8 +1,7 @@
 import { BenchmarkFunctions, BenchMarkJs } from "..";
-import { generateArray, SumMethods } from "./sum-methods-mock";
-
-const saveJsonFile = require("../utils/save-json-file");
 import { Options } from "../utils/save-json-file";
+import { Arrays, SumMethods } from "./sum-methods-mock";
+const saveJsonFile = require("../utils/save-json-file");
 
 describe("Benchmark", () => {
 	let benchMarkJs: BenchMarkJs;
@@ -21,7 +20,7 @@ describe("Benchmark", () => {
 
 	it("should accept any type of methods parameters and return types", async () => {
 		const arrayLength = 1000000;
-		const numberArray = generateArray(arrayLength);
+		const numberArray = Arrays.generateArray(arrayLength);
 
 		const benchmark1: BenchmarkFunctions<number, number> = {
 			name: "forLoop",
@@ -51,7 +50,7 @@ describe("Benchmark", () => {
 
 	it("should save the benchmark data to a file", async () => {
 		const arrayLength = 1000000;
-		const numberArray = generateArray(arrayLength);
+		const numberArray = Arrays.generateArray(arrayLength);
 
 		const spySaveFile = jest.spyOn(saveJsonFile, "saveJsonFile");
 
@@ -79,5 +78,29 @@ describe("Benchmark", () => {
 
 		expect(spySaveFile).toHaveBeenCalled();
 		expect(spySaveFile).toHaveBeenCalledTimes(1);
+	});
+
+	it("should return the comparison result of generating array with for and fill", async () => {
+		const arrayLength = 10_000_000;
+
+		const benchmarkFork: BenchmarkFunctions<number, number[]> = {
+			name: "For Loop",
+			functionUnderTest: () => Arrays.generateArray(arrayLength),
+			description: "Generate array using for loop",
+		};
+
+		const benchmarkFill: BenchmarkFunctions<number, number[]> = {
+			name: "Fill",
+			functionUnderTest: () => Arrays.generateArrayWithRandom(arrayLength),
+			description: "Generate array using fill",
+		};
+
+		const comparisonResult = await benchMarkJs.benchMark(
+			"Comparison Generate Numbers Array function",
+			[benchmarkFork, benchmarkFill],
+			{ dirPath: "TMP" }
+		);
+
+		console.log(comparisonResult);
 	});
 });
