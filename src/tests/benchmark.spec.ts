@@ -100,7 +100,5 @@ describe("Benchmark", () => {
 			[benchmarkFork, benchmarkFill],
 			{ dirPath: "TMP" }
 		);
-
-		console.log(comparisonResult);
 	});
 });
